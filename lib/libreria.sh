@@ -25,7 +25,7 @@ is_equal()
 
   subtitle(){
     echo 
-    echo $1
+    echo $*
     echo "***************************************"
   } 
 
@@ -46,7 +46,7 @@ is_equal()
 
   msg_value_table(){
     echo 
-    echo "\t$2"
+    echo "\t$*"
     echo 
   }
 
@@ -56,20 +56,7 @@ is_equal()
     echo 
   }
 
-  correct_value(){
 
-    case $1 in
-      dni)      message="Introduce el dni correctamente";;
-      email)    message="Introduce el email correctamente\nEl sistema no permite caracteres especiales {._-/*}";;
-      telefono) message="Introduce el teléfono correctamente" ;;
-      fijo)     message="Introduce el telefono fijo correctamente";;
-      *)        message="Introduce un valor correcto";;
-    esac
-
-    echo
-    echo $message
-    echo
-  }
 
   stop()
   {
@@ -89,12 +76,12 @@ is_equal()
 
 is_mayor_equal()
    {
-        if [ $1 -ge $2 ]
-	   then
-		return 0
-	   else
-		return 1
-	fi
+    if [ $1 -ge $2 ]
+      then
+        return 0
+      else
+        return 1
+      fi
    }
 
 is_minor()
@@ -176,6 +163,15 @@ is_phone_fixed_number()
 {
   if [ `echo "$1" | grep "^9[0-9]\{8\}$"` ]
     then
+      return 0
+    else
+      return 1
+    fi
+}
+
+exist_file(){
+  if [ -w $1 ]
+    then 
       return 0
     else
       return 1
